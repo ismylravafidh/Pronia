@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 
 namespace Pronia.Controllers
 {
@@ -13,9 +14,11 @@ namespace Pronia.Controllers
 
         public IActionResult Index()
         {
-            HomeVm homeVm = new HomeVm();
-            homeVm.Sliders = _dbContext.Sliders.ToList();
-            homeVm.Products = _dbContext.Products.Include(p=>p.Category).Include(p=>p.ProductTags).ThenInclude(p=>p.Tag).Include(p=>p.ProductImages).ToList();
+            HomeVm homeVm = new HomeVm()
+            {
+                Sliders = _dbContext.Sliders.ToList(),
+                Products = _dbContext.Products.Where(p => p.IsPrime == false).Include(p => p.ProductImages).ToList()
+            };
             return View(homeVm);
         }
     }

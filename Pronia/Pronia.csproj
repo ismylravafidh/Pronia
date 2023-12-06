@@ -32,4 +32,11 @@
     <Folder Include="wwwroot\Upload\SliderImage\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Shared\Components\Footer\Default.cshtml" />
+    <None Include="Views\Shared\Components\Product\Default.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ProductPartialView.cshtml" />
+  </ItemGroup>
+
 </Project>

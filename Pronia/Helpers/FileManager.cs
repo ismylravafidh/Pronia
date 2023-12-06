@@ -17,7 +17,7 @@
 			}
 			return filname;
 		}
-		public static void DeleteFile(string imgUrl, string envPath, string folderName)
+		public static void DeleteFile(this string imgUrl, string envPath, string folderName)
 		{
 			string path = envPath + folderName + imgUrl;
 			if (File.Exists(path))

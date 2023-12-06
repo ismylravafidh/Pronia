@@ -1,4 +1,6 @@
-﻿namespace Pronia.DAL
+﻿using BB205_Pronia.Models;
+
+namespace Pronia.DAL
 {
     public class AppDbContext : DbContext
     {
@@ -12,5 +14,6 @@
         public DbSet<Tag> Tags { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductTag> ProductTags { get; set; }
+        public DbSet<Setting> Setting { get; set; }
     }
 }
