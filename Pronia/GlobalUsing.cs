@@ -5,3 +5,5 @@ global using Pronia.Models;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using BB205_Pronia.ViewModels;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Pronia.ViewModels;

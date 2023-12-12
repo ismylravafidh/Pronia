@@ -1,8 +1,6 @@
-﻿using BB205_Pronia.Models;
-
-namespace Pronia.DAL
+﻿namespace Pronia.DAL
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {

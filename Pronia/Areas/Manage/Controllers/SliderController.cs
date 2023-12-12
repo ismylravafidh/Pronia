@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Pronia.Helpers;
 using Pronia.Models;
 using System.Net;
@@ -16,17 +17,20 @@ namespace Pronia.Areas.Manage.Controllers
 			_dbContext = context;
 			_environment = environment;
 		}
-		public IActionResult Index()
+        [Authorize(Roles = "Admin")]
+        public IActionResult Index()
         {
 			List<Slider> sliderList = _dbContext.Sliders.ToList();
 			return View(sliderList);
 		}
-		public IActionResult Create()
+        [Authorize(Roles = "Admin")]
+        public IActionResult Create()
 		{
 			return View();
 		}
 		[HttpPost]
-		public IActionResult Create(Slider slider)
+        [Authorize(Roles = "Admin")]
+        public IActionResult Create(Slider slider)
 		{
 			if (!slider.ImageFile.ContentType.Contains("image"))
 			{
@@ -48,13 +52,15 @@ namespace Pronia.Areas.Manage.Controllers
 			_dbContext.SaveChangesAsync();
 			return RedirectToAction("Index");
 		}
-		public IActionResult Update(int id)
+        [Authorize(Roles = "Admin")]
+        public IActionResult Update(int id)
 		{
 			Slider slider = _dbContext.Sliders.Find(id);
 			return View(slider);
 		}
 		[HttpPost]
-		public IActionResult Update(Slider newSlider)
+        [Authorize(Roles = "Admin")]
+        public IActionResult Update(Slider newSlider)
 		{
 			if (!newSlider.ImageFile.ContentType.Contains("image"))
 			{
@@ -77,7 +83,8 @@ namespace Pronia.Areas.Manage.Controllers
 			_dbContext.SaveChanges();
 			return RedirectToAction("Index");
 		}
-		public IActionResult Delete(int id)
+        [Authorize(Roles = "Admin")]
+        public IActionResult Delete(int id)
 		{
 			Slider slider = _dbContext.Sliders.FirstOrDefault(s => s.Id == id);
 

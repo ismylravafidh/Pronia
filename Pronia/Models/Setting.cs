@@ -1,4 +1,4 @@
-﻿namespace BB205_Pronia.Models
+﻿namespace Pronia.Models
 {
     public class Setting
     {

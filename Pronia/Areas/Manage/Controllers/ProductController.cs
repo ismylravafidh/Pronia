@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Pronia.Areas.ViewModels;
 using Pronia.Helpers;
 using Pronia.Models;
@@ -17,12 +18,14 @@ namespace Pronia.Areas.Manage.Controllers
             _dbContext = context;
             _environment = environment;
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             List<Product> product = _dbContext.Products.Where(p => p.IsPrime == false).Include(p => p.Category)
                 .Include(p => p.ProductTags).ThenInclude(pt => pt.Tag).Include(p => p.ProductImages).ToList();
             return View(product);
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             ViewBag.Categories = await _dbContext.Categories.ToListAsync();
@@ -30,6 +33,7 @@ namespace Pronia.Areas.Manage.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateProductVm createProductVm)
         {
             ViewBag.Categories = await _dbContext.Categories.ToListAsync();
@@ -117,6 +121,7 @@ namespace Pronia.Areas.Manage.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id)
         {
             Product product = await _dbContext.Products.Where(p => p.IsPrime == false).Include(p => p.Category)
@@ -160,6 +165,7 @@ namespace Pronia.Areas.Manage.Controllers
             return View(updateProductVm);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(UpdateProductVm updateProductVm)
         {
             ViewBag.Categories = await _dbContext.Categories.ToListAsync();
@@ -290,7 +296,7 @@ namespace Pronia.Areas.Manage.Controllers
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var product = _dbContext.Products.Where(p => p.IsPrime == false).FirstOrDefault(p => p.Id == id);
